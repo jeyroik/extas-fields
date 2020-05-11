@@ -1,0 +1,50 @@
+{
+  "name": "extas/fields",
+  "package_classes": [
+    {
+      "interface": "extas\\interfaces\\fields\\IFieldRepository",
+      "class": "extas\\components\\fields\\FieldRepository"
+    },
+    {
+      "interface": "fieldRepository",
+      "class": "extas\\components\\fields\\FieldRepository"
+    },
+    {
+      "interface": "extas\\interfaces\\fields\\IFieldSampleRepository",
+      "class": "extas\\components\\fields\\FieldSampleRepository"
+    },
+    {
+      "interface": "fieldSampleRepository",
+      "class": "extas\\components\\fields\\FieldSampleRepository"
+    },
+    {
+      "interface": "extas\\interfaces\\fields\\types\\IFieldTypeRepository",
+      "class": "extas\\components\\fields\\types\\FieldTypeRepository"
+    },
+    {
+      "interface": "fieldTypeRepository",
+      "class": "extas\\components\\fields\\types\\FieldTypeRepository"
+    },
+    {
+      "interface": "extas\\interfaces\\fields\\types\\IFieldTypeSampleRepository",
+      "class": "extas\\components\\fields\\types\\FieldTypeSampleRepository"
+    },
+    {
+      "interface": "fieldTypeSampleRepository",
+      "class": "extas\\components\\fields\\types\\FieldTypeSampleRepository"
+    }
+  ],
+  "extensions": [
+    {
+      "class": "extas\\components\\extensions\\ExtensionRepositoryGet",
+      "interface": "extas\\interfaces\\extensions\\IExtensionRepositoryGet",
+      "subject": "*",
+      "methods": [
+        "fieldRepository",
+        "fieldSampleRepository",
+        "fieldTypeRepository",
+        "fieldTypeSampleRepository"
+      ]
+    }
+  ]
+}
