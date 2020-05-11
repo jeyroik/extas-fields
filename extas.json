@@ -34,6 +34,17 @@
       "class": "extas\\components\\fields\\types\\FieldTypeSampleRepository"
     }
   ],
+  "plugins": [
+    {
+      "class": [
+        "extas\\components\\plugins\\PluginInstallFieldsSamples",
+        "extas\\components\\plugins\\PluginInstallFields",
+        "extas\\components\\plugins\\PluginInstallFieldsTypesSamples",
+        "extas\\components\\plugins\\PluginInstallFieldsTypes"
+      ],
+      "stage": "extas.install"
+    }
+  ],
   "extensions": [
     {
       "class": "extas\\components\\extensions\\ExtensionRepositoryGet",
