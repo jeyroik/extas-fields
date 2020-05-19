@@ -1,6 +1,7 @@
 <?php
 namespace extas\interfaces\fields;
 
+use extas\interfaces\IHasId;
 use extas\interfaces\samples\IHasSample;
 
 /**
@@ -9,7 +10,7 @@ use extas\interfaces\samples\IHasSample;
  * @package extas\interfaces\fields
  * @author jeyroik@gmail.com
  */
-interface IField extends IFieldSample, IHasSample
+interface IField extends IFieldSample, IHasSample, IHasId
 {
 
 }

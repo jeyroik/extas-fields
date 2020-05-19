@@ -14,6 +14,6 @@ class FieldRepository extends Repository implements IFieldRepository
 {
     protected string $scope = 'extas';
     protected string $name = 'fields';
-    protected string $pk = Field::FIELD__NAME;
+    protected string $pk = Field::FIELD__ID;
     protected string $itemClass = Field::class;
 }
