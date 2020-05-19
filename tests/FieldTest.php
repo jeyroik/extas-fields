@@ -73,7 +73,12 @@ class FieldTest extends TestCase
             Plugin::FIELD__CLASS => PluginFieldUuid::class,
             Plugin::FIELD__STAGE => 'extas.fields.create.before'
         ]));
-        $plugin = new PluginInstallFields();
+        $plugin = new class extends PluginInstallFields {
+            protected function installPackageEntity(array $item): void
+            {
+
+            }
+        };
         $plugin->install('', new NullOutput(), ['name' => 'test'], new FieldRepository());
         /**
          * @var IField $field
