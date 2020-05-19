@@ -43,6 +43,10 @@
         "extas\\components\\plugins\\PluginInstallFieldsTypes"
       ],
       "stage": "extas.install"
+    },
+    {
+      "class": "extas\\components\\plugins\\repositories\\PluginUUidField",
+      "stage": "extas.fields.create.before"
     }
   ],
   "extensions": [

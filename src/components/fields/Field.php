@@ -1,6 +1,7 @@
 <?php
 namespace extas\components\fields;
 
+use extas\components\THasId;
 use extas\interfaces\fields\IField;
 use extas\components\samples\THasSample;
 
@@ -13,6 +14,7 @@ use extas\components\samples\THasSample;
 class Field extends FieldSample implements IField
 {
     use THasSample;
+    use THasId;
 
     /**
      * @return string
