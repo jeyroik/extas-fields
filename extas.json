@@ -1,5 +1,6 @@
 {
   "name": "extas/fields",
+  "installer_version": 3,
   "package_classes": [
     {
       "interface": "fieldRepository",
