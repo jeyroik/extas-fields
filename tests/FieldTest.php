@@ -76,7 +76,8 @@ class FieldTest extends TestCase
             }
         };
         $sectionData = [[Field::FIELD__NAME => 'test']];
-        $plugin('fields', $sectionData, new Installer());
+        $installer = new Installer();
+        $plugin('fields', $sectionData, $installer);
         /**
          * @var IField $field
          */
