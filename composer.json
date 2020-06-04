@@ -3,7 +3,7 @@
   "description": "Extas fields package",
   "require": {
     "jeyroik/extas-base": "2.*",
-    "jeyroik/extas-samples": "2.*",
+    "jeyroik/extas-samples": "3.*",
     "jeyroik/extas-repositories-get": "0.*",
     "jeyroik/extas-repositories-fields-uuid": "0.*"
   },
@@ -11,7 +11,8 @@
     "phpunit/phpunit": "^9",
     "vlucas/phpdotenv": "^3.4",
     "jeyroik/extas-repositories-mongo": "1.*",
-    "jeyroik/extas-snuffbox": "0.*"
+    "jeyroik/extas-snuffbox": "0.*",
+    "jeyroik/extas-installer": "*"
   },
   "autoload": {
     "psr-4": {

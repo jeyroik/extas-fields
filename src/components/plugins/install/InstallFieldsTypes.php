@@ -1,16 +1,16 @@
 <?php
-namespace extas\components\plugins;
+namespace extas\components\plugins\install;
 
 use extas\components\fields\types\FieldType;
 use extas\interfaces\fields\types\IFieldTypeRepository;
 
 /**
- * Class PluginInstallFieldsTypes
+ * Class InstallFieldsTypes
  *
- * @package extas\components\plugins
+ * @package extas\components\plugins\install
  * @author jeyroik@gmail.com
  */
-class PluginInstallFieldsTypes extends PluginInstallDefault
+class InstallFieldsTypes extends InstallSection
 {
     protected string $selfSection = 'fields_types';
     protected string $selfName = 'field type';

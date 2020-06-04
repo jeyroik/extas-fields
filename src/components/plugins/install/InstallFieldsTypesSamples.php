@@ -1,16 +1,16 @@
 <?php
-namespace extas\components\plugins;
+namespace extas\components\plugins\install;
 
 use extas\components\fields\types\FieldTypeSample;
 use extas\interfaces\fields\types\IFieldTypeSampleRepository;
 
 /**
- * Class PluginInstallFieldsTypesSamples
+ * Class InstallFieldsTypesSamples
  *
- * @package extas\components\plugins
+ * @package extas\components\plugins\install
  * @author jeyroik@gmail.com
  */
-class PluginInstallFieldsTypesSamples extends PluginInstallDefault
+class InstallFieldsTypesSamples extends InstallSection
 {
     protected string $selfSection = 'fields_types_samples';
     protected string $selfName = 'field type sample';

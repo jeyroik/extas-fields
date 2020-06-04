@@ -1,20 +1,24 @@
 <?php
 namespace tests;
 
-use extas\components\extensions\TSnuffExtensions;
+use extas\components\console\TSnuffConsole;
+use extas\components\extensions\ExtensionRepository;
 use extas\components\fields\Field;
 use extas\components\fields\FieldRepository;
 use extas\components\fields\types\FieldType;
 use extas\components\fields\types\FieldTypeRepository;
-use extas\components\plugins\Plugin;
-use extas\components\plugins\PluginInstallFields;
+use extas\components\packages\entities\EntityRepository;
+use extas\components\packages\Installer;
+use extas\components\plugins\install\InstallFields;
+use extas\components\plugins\install\InstallItem;
 use extas\components\plugins\PluginRepository;
 use extas\components\plugins\repositories\PluginFieldUuid;
+use extas\components\plugins\TSnuffPlugins;
+use extas\components\repositories\TSnuffRepository;
 use extas\interfaces\fields\IField;
-use extas\interfaces\repositories\IRepository;
+use extas\interfaces\stages\IStageInstallItem;
 use PHPUnit\Framework\TestCase;
 use Dotenv\Dotenv;
-use Symfony\Component\Console\Output\NullOutput;
 
 /**
  * Class FieldTest
@@ -24,42 +28,36 @@ use Symfony\Component\Console\Output\NullOutput;
  */
 class FieldTest extends TestCase
 {
-    use TSnuffExtensions;
-
-    protected IRepository $typeRepo;
-    protected IRepository $fieldRepo;
-    protected IRepository $pluginRepo;
+    use TSnuffConsole;
+    use TSnuffRepository;
+    use TSnuffPlugins;
 
     protected function setUp(): void
     {
         parent::setUp();
         $env = Dotenv::create(getcwd() . '/tests/');
         $env->load();
-        $this->typeRepo = new FieldTypeRepository();
-        $this->fieldRepo = new FieldRepository();
-        $this->pluginRepo = new PluginRepository();
-        $this->addReposForExt([
+        $this->registerSnuffRepos([
             'fieldTypeRepository' => FieldTypeRepository::class,
-            'fieldRepository' => FieldRepository::class
+            'fieldRepository' => FieldRepository::class,
+            'pluginRepository' => PluginRepository::class,
+            'extensionRepository' => ExtensionRepository::class,
+            'entityRepository' => EntityRepository::class
         ]);
-        $this->createRepoExt(['fieldRepository', 'fieldTypeRepository']);
     }
 
     protected function tearDown(): void
     {
-        $this->deleteSnuffExtensions();
-        $this->typeRepo->delete([FieldType::FIELD__NAME => 'string']);
-        $this->fieldRepo->delete([Field::FIELD__NAME => 'test']);
-        $this->pluginRepo->delete([Plugin::FIELD__CLASS => PluginFieldUuid::class]);
+        $this->unregisterSnuffRepos();
     }
 
     public function testBasicMethods()
     {
-        $this->typeRepo->create(new FieldType([
+        $this->createWithSnuffRepo('fieldTypeRepository', new FieldType([
             FieldType::FIELD__NAME => 'string',
             FieldType::FIELD__TITLE => 'String type'
         ]));
-        $this->createRepoExt(['fieldTypeRepository']);
+
         $field = new Field([Field::FIELD__TYPE => 'string']);
         $type = $field->getTypeObject();
 
@@ -69,21 +67,21 @@ class FieldTest extends TestCase
 
     public function testPluginInstallField()
     {
-        $this->pluginRepo->create(new Plugin([
-            Plugin::FIELD__CLASS => PluginFieldUuid::class,
-            Plugin::FIELD__STAGE => 'extas.fields.create.before'
-        ]));
-        $plugin = new class extends PluginInstallFields {
-            protected function installPackageEntity(array $item): void
-            {
-
-            }
-        };
-        $plugin->install('', new NullOutput(), ['name' => 'test'], new FieldRepository());
+        $this->createSnuffPlugin(PluginFieldUuid::class, ['extas.fields.create.before']);
+        $this->createSnuffPlugin(InstallItem::class, [IStageInstallItem::NAME]);
+        $plugin = new class ([
+            InstallFields::FIELD__INPUT => $this->getInput(),
+            InstallFields::FIELD__OUTPUT => $this->getOutput()
+        ]) extends InstallFields {};
+        $sectionData = [
+            [Field::FIELD__NAME => 'test']
+        ];
+        $installer = new Installer();
+        $plugin('fields', $sectionData, $installer);
         /**
          * @var IField $field
          */
-        $field = $this->fieldRepo->one([Field::FIELD__NAME => 'test']);
+        $field = $this->oneSnuffRepos('fieldRepository', [Field::FIELD__NAME => 'test']);
         $this->assertNotEmpty($field, 'Field is not installed');
         $this->assertNotEmpty($field->getId(), 'ID is not uuid, if it is empty');
     }
