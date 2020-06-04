@@ -10,11 +10,13 @@ use extas\components\fields\types\FieldTypeRepository;
 use extas\components\packages\entities\EntityRepository;
 use extas\components\packages\Installer;
 use extas\components\plugins\install\InstallFields;
-use extas\components\plugins\Plugin;
+use extas\components\plugins\install\InstallItem;
 use extas\components\plugins\PluginRepository;
 use extas\components\plugins\repositories\PluginFieldUuid;
+use extas\components\plugins\TSnuffPlugins;
 use extas\components\repositories\TSnuffRepository;
 use extas\interfaces\fields\IField;
+use extas\interfaces\stages\IStageInstallItem;
 use PHPUnit\Framework\TestCase;
 use Dotenv\Dotenv;
 
@@ -28,6 +30,7 @@ class FieldTest extends TestCase
 {
     use TSnuffConsole;
     use TSnuffRepository;
+    use TSnuffPlugins;
 
     protected function setUp(): void
     {
@@ -64,15 +67,15 @@ class FieldTest extends TestCase
 
     public function testPluginInstallField()
     {
-        $this->createWithSnuffRepo('pluginRepository', new Plugin([
-            Plugin::FIELD__CLASS => PluginFieldUuid::class,
-            Plugin::FIELD__STAGE => 'extas.fields.create.before'
-        ]));
+        $this->createSnuffPlugin(PluginFieldUuid::class, ['extas.fields.create.before']);
+        $this->createSnuffPlugin(InstallItem::class, [IStageInstallItem::NAME]);
         $plugin = new class ([
             InstallFields::FIELD__INPUT => $this->getInput(),
             InstallFields::FIELD__OUTPUT => $this->getOutput()
         ]) extends InstallFields {};
-        $sectionData = [[Field::FIELD__NAME => 'test']];
+        $sectionData = [
+            [Field::FIELD__NAME => 'test']
+        ];
         $installer = new Installer();
         $plugin('fields', $sectionData, $installer);
         /**
