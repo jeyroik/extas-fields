@@ -7,6 +7,7 @@ use extas\components\fields\Field;
 use extas\components\fields\FieldRepository;
 use extas\components\fields\types\FieldType;
 use extas\components\fields\types\FieldTypeRepository;
+use extas\components\packages\entities\EntityRepository;
 use extas\components\packages\Installer;
 use extas\components\plugins\install\InstallFields;
 use extas\components\plugins\Plugin;
@@ -37,7 +38,8 @@ class FieldTest extends TestCase
             'fieldTypeRepository' => FieldTypeRepository::class,
             'fieldRepository' => FieldRepository::class,
             'pluginRepository' => PluginRepository::class,
-            'extensionRepository' => ExtensionRepository::class
+            'extensionRepository' => ExtensionRepository::class,
+            'entityRepository' => EntityRepository::class
         ]);
     }
 
@@ -69,12 +71,7 @@ class FieldTest extends TestCase
         $plugin = new class ([
             InstallFields::FIELD__INPUT => $this->getInput(),
             InstallFields::FIELD__OUTPUT => $this->getOutput()
-        ]) extends InstallFields {
-            protected function installPackageEntity(array $item): void
-            {
-
-            }
-        };
+        ]) extends InstallFields {};
         $sectionData = [[Field::FIELD__NAME => 'test']];
         $installer = new Installer();
         $plugin('fields', $sectionData, $installer);
