@@ -78,7 +78,7 @@ class FieldTest extends TestCase
         /**
          * @var IField $field
          */
-        $field = $this->fieldRepo->one([Field::FIELD__NAME => 'test']);
+        $field = $this->oneSnuffRepos('fieldRepository', [Field::FIELD__NAME => 'test']);
         $this->assertNotEmpty($field, 'Field is not installed');
         $this->assertNotEmpty($field->getId(), 'ID is not uuid, if it is empty');
     }
