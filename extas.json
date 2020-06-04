@@ -53,7 +53,7 @@
       "stage": "extas.uninstall.section.fields_types"
     },
     {
-      "class": "extas\\components\\plugins\\repositories\\PluginUUidField",
+      "class": "extas\\components\\plugins\\repositories\\PluginFieldUUid",
       "stage": "extas.fields.create.before"
     }
   ],
