@@ -14,7 +14,7 @@ class InstallFieldsTypesSamples extends InstallSection
 {
     protected string $selfSection = 'fields_types_samples';
     protected string $selfName = 'field type sample';
-    protected string $selfRepositoryClass = IFieldTypeSampleRepository::class;
+    protected string $selfRepositoryClass = 'fieldTypeSampleRepository';
     protected string $selfUID = FieldTypeSample::FIELD__NAME;
     protected string $selfItemClass = FieldTypeSample::class;
 }
