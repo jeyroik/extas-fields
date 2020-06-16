@@ -49,7 +49,7 @@ trait THasFields
         $values = [];
 
         foreach ($fields as $field) {
-            $options[$field->getName()] = $field->getValue();
+            $values[$field->getName()] = $field->getValue();
         }
 
         return $values;
