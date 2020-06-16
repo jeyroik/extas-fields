@@ -2,8 +2,7 @@
   "name": "jeyroik/extas-fields",
   "description": "Extas fields package",
   "require": {
-    "jeyroik/extas-base": "2.*",
-    "jeyroik/extas-samples": "3.*",
+    "jeyroik/extas-foundation": "5.*",
     "jeyroik/extas-repositories-get": "0.*",
     "jeyroik/extas-repositories-fields-uuid": "0.*"
   },
