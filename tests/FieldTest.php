@@ -122,11 +122,28 @@ class FieldTest extends TestCase
 
         $this->assertEmpty($item->getFields());
         $item->setName('test is ok');
+
         $this->assertCount(1, $item->getFields());
-        $this->assertEquals('is ok', $item->getFieldValue('test1'));
-        $this->assertEquals(['test1' => 'is ok'], $item->getFieldsValues());
-        $this->assertEquals($fieldOptions, $item->getFieldOptions('test1'));
-        $this->assertEquals(['test1' => $fieldOptions], $item->getFieldsOptions());
+        $this->assertEquals(
+            'is ok',
+            $item->getFieldValue('test1'),
+            'Current: '. $item->getFieldValue('test1')
+        );
+        $this->assertEquals(
+            ['test1' => 'is ok'],
+            $item->getFieldsValues(),
+            'Current: ' . print_r($item->getFieldsValues(), true)
+        );
+        $this->assertEquals(
+            $fieldOptions,
+            $item->getFieldOptions('test1'),
+            'Current: ' . print_r($item->getFieldOptions('test1'), true)
+        );
+        $this->assertEquals(
+            ['test1' => $fieldOptions],
+            $item->getFieldsOptions(),
+            'Current: ' . print_r($item->getFieldsOptions(), true)
+        );
 
         $fieldOptions['value'] = 'is ok again';
         $item->setFields([new Field($fieldOptions)]);
