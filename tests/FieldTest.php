@@ -124,6 +124,7 @@ class FieldTest extends TestCase
         $item->setName('test is ok');
 
         $this->assertCount(1, $item->getFields());
+        $this->assertTrue($item->hasField('test1'));
         $this->assertEquals(
             'is ok',
             $item->getFieldValue('test1'),

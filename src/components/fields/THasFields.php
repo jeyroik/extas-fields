@@ -76,6 +76,20 @@ trait THasFields
 
     /**
      * @param string $name
+     * @return bool
+     */
+    public function hasField(string $name): bool
+    {
+        $field = $this->fieldRepository()->one([
+            IHasFields::PARAM__SUBJECT => $this->getSubjectForFields(),
+            IField::FIELD__NAME => $name
+        ]);
+
+        return $field ? true : false;
+    }
+
+    /**
+     * @param string $name
      * @return array
      * @throws MissedOrUnknown
      */
