@@ -38,6 +38,12 @@ interface IHasFields
 
     /**
      * @param string $name
+     * @return bool
+     */
+    public function hasField(string $name): bool;
+
+    /**
+     * @param string $name
      * @return array
      * @throws MissedOrUnknown
      */
